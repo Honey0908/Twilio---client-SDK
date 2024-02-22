@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: rgb(85, 4, 198);
+  color: azure;
+  padding: 10px 26px;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+.phone-box {
+  margin: 0 40%;
+  margin-top: 60px;
+}
+.gird {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  justify-items: center;
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+.number {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: 900;
+  width: 90%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.number:active {
+  background-color: darkgrey;
+  box-shadow: 0 1px 5px rgb(0 0 0 / 0.2);
+  transform: translateY(4px);
+}
+
+.number-input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 20px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 1.5rem;
+}
+
+.button {
+  padding: 0.5rem 2rem;
+  color: white;
+  width: fit-content;
+  text-align: center;
+  margin: 20px auto;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+.call {
+  background-color: green;
+}
+
+.in-call {
+  background-color: red;
+}
+
+.button:active {
+  opacity: 0.5;
+  box-shadow: 0 1px 5px rgb(0 0 0 / 0.2);
+  transform: translateY(4px);
+}
+
+.user-state {
+  padding: 8px 16px;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.timer {
+  text-align: center;
+}
+.connect-button {
+  background-color: green;
+}
