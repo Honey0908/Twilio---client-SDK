@@ -3,7 +3,6 @@ import config from "./config.js";
 
 
 const handleCall = (request, response) => {
-    console.log(request.body);
     const To = request.body.To;
     if (To == config.callerId) {
         // incoming call

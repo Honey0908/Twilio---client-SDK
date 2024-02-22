@@ -60,11 +60,11 @@
   cursor: pointer;
   font-weight: 700;
 }
-.call {
+.bg-success {
   background-color: green;
 }
 
-.in-call {
+.bg-danger {
   background-color: red;
 }
 
@@ -83,7 +83,12 @@
 
 .timer {
   text-align: center;
+  margin: 2rem 0;
 }
 .connect-button {
   background-color: green;
+}
+
+.incoming-call {
+  margin: 2rem 0;
 }

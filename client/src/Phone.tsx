@@ -90,13 +90,13 @@ const Phone = ({ token }: { token: string }) => {
         if (incomingCall) {
             incomingCall.accept();
             setUserState(USER_STATE.ON_CALL);
-            setIncomingCall(null);
         }
     };
 
     const rejectIncomingCall = () => {
         if (incomingCall) {
             incomingCall.reject();
+            setUserState(USER_STATE.READY);
             setIncomingCall(null);
         }
     };
@@ -112,32 +112,36 @@ const Phone = ({ token }: { token: string }) => {
     return (
         <div className="phone">
             <div className="user-state">{`Status - > ${userState}`}</div>
-            <input
-                className="number-input"
-                value={phoneNumber}
-                onChange={(event) => setPhoneNumber(event.target.value)}
-            />
             {userState === USER_STATE.ON_CALL ? (
                 <Timer />
             ) : (
-                <div className="gird">
-                    {numberList.map((value) => (
-                        <div key={value} className="number" onClick={() => handleNumberClick(value)}>
-                            {value}
-                        </div>
-                    ))}
-                </div>
+                <>
+                    <input
+                        className="number-input"
+                        value={phoneNumber}
+                        onChange={(event) => setPhoneNumber(event.target.value)}
+                    />
+                    <div className="gird">
+                        {numberList.map((value) => (
+                            <div key={value} className="number" onClick={() => handleNumberClick(value)}>
+                                {value}
+                            </div>
+                        ))}
+                    </div>
+                </>
             )}
             {incomingCall && (
                 <div className="incoming-call">
                     <div>{`Incoming call from: ${incomingCall?.parameters?.From}`}</div>
-                    <button onClick={answerIncomingCall}>Answer</button>
-                    <button onClick={rejectIncomingCall}>Reject</button>
+                    <button className="button bg-success" onClick={answerIncomingCall}>Answer</button>
+                    <button className="button bg-danger" onClick={rejectIncomingCall}>Reject</button>
                 </div>
             )}
-            <div className={`${userState === USER_STATE.ON_CALL ? "in-call" : "call"} button`} onClick={() => (userState === USER_STATE.ON_CALL ? endCall() : handleCall())}>
-                {userState === USER_STATE.ON_CALL ? "call_end" : ("call")}
-            </div>
+            {!incomingCall &&
+                <div className={`${userState === USER_STATE.ON_CALL ? "bg-danger" : "bg-success"} button`} onClick={() => (userState === USER_STATE.ON_CALL ? endCall() : handleCall())}>
+                    {userState === USER_STATE.ON_CALL ? "call_end" : "call"}
+                </div>
+            }
         </div>
     );
 };
