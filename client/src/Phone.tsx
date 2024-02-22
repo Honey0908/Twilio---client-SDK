@@ -2,10 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Call, Device } from "@twilio/voice-sdk";
 import { PhoneNumber } from "twilio/lib/interfaces";
-
-interface CustomDevice extends Device {
-    on(event: string, handler: Function): void;
-}
+import Timer from "./components/Timer";
 
 //Types
 enum USER_STATE {
@@ -17,31 +14,10 @@ enum USER_STATE {
 
 const numberList = [1, 2, 3, 4, 5, 6, 7, 8, 9, "+", 0, "<<"];
 
-//Helpers
-const Timer = () => {
-    const [timer, setTimer] = useState({ mins: 0, sec: 0 });
-    const getTime = () => {
-        setTimer((state) => ({
-            mins: state.sec === 60 ? state.mins + 1 : state.mins,
-            sec: state.sec === 60 ? 0 : state.sec + 1,
-        }));
-    };
-    useEffect(() => {
-        const interval = setInterval(() => getTime(), 1000);
-        return () => clearInterval(interval);
-    }, []);
-
-    return (
-        <div className="timer">
-            {`${timer.mins < 9 ? "0" + timer.mins : timer.mins} : ${timer.sec < 9 ? "0" + timer.sec : timer.sec}`}
-        </div>
-    );
-};
-
 const Phone = ({ token }: { token: string }) => {
     const [userState, setUserState] = useState(USER_STATE.OFFLINE);
     const [phoneNumber, setPhoneNumber] = useState<string>("");
-    const [callDevice, setDevice] = useState<undefined | CustomDevice>();
+    const [callDevice, setDevice] = useState<undefined | Device>();
     const callRef = useRef<Call | null>(null);
     const [incomingCall, setIncomingCall] = useState<Call | null>(null);
 
@@ -51,7 +27,7 @@ const Phone = ({ token }: { token: string }) => {
             try {
                 const device: any = new Device(token, {
                     edge: "ashburn",
-                    // logLevel: 1
+                    // logLevel: 1 // debug twilio actions
                 });
                 device.register();
                 setDevice(device);

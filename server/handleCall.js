@@ -6,20 +6,22 @@ const handleCall = (request, response) => {
     console.log(request.body);
     const To = request.body.To;
     if (To == config.callerId) {
-        console.log("incoming call");
+        // incoming call
         const twiml = new VoiceResponse.twiml.VoiceResponse();
         const dial = twiml.dial();
         dial.client(config.client_identity);
+
         response.set("Content-Type", "text/xml");
         response.send(twiml.toString());
         return;
 
     }
-    console.log("outgoing call");
+    // outgoing call
     const twiml = new VoiceResponse.twiml.VoiceResponse();
-    twiml.say("Hello Everyone I hope you are enjoying the session !");
+    twiml.say({ voice: "Polly.Aditi" }, "Hello Everyone I hope you are enjoying the session !");
     const dial = twiml.dial({ callerId: config.callerId });
     dial.number(To);
+
     response.set("Content-Type", "text/xml");
     response.send(twiml.toString());
 };
